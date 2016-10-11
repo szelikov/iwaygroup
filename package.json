@@ -1,0 +1,40 @@
+{
+  "name": "iway",
+  "version": "0.0.1",
+  "description": "iWay Group Test Job",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szelikov/iwaygroup.git"
+  },
+  "author": "Sergii Zelikov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/szelikov/iwaygroup/issues"
+  },
+  "homepage": "https://github.com/szelikov/iwaygroup#readme",
+  "devDependencies": {
+    "connect": "^3.5.0",
+    "connect-livereload": "^0.6.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-csso": "^2.0.0",
+    "gulp-file-include": "^1.0.0",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-livereload": "^3.8.1",
+    "gulp-rigger": "^0.5.8",
+    "gulp-uglify": "^2.0.0",
+    "serve-static": "^1.11.1",
+    "tiny-lr": "^0.2.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "ngstorage": "^0.3.11",
+    "restangular": "^1.5.2",
+    "satellizer": "^0.15.5"
+  }
+}
