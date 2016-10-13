@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>iWayGroup</title>
+	<base href="/">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="iWayApp">
+
+	@@include('./_header.html')
+
+	<div class="container">
+		<section ui-view></section>
+	</div>
+
+	@@include('./_footer.html')
+
+	<script src="js/index.js"></script>
+</body>
+
+</html>

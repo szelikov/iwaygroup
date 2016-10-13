@@ -24,6 +24,7 @@
     "gulp-csso": "^2.0.0",
     "gulp-file-include": "^1.0.0",
     "gulp-imagemin": "^3.0.3",
+    "gulp-less": "^3.1.0",
     "gulp-livereload": "^3.8.1",
     "gulp-rigger": "^0.5.8",
     "gulp-uglify": "^2.0.0",
@@ -32,8 +33,13 @@
   },
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-ui-bootstrap": "^2.2.0",
     "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.7",
+    "jwt-simple": "^0.5.0",
     "ngstorage": "^0.3.11",
+    "origindb": "^2.6.1",
+    "request": "^2.75.0",
     "restangular": "^1.5.2",
     "satellizer": "^0.15.5"
   }
