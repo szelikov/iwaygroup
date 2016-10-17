@@ -1,1 +1,10 @@
-<h1>Inside</h1>
+<h1>Welcome!</h1>
+<div class="row" ng-controller="userCtrl as uCtrl">
+	<div class="col-sm-4 col-md-3 col-xs-6">
+		<img src="{{uCtrl.user.image}}" alt="{{uCtrl.user.name}}" class="img-circle img-responsive">
+	</div>
+	<div class="col-sm-6 col-md-9 col-xs-6">
+		<div>{{uCtrl.user.name}}</div>
+		<div>{{uCtrl.user.status}}</div>
+	</div>
+</div>

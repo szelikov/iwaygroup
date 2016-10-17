@@ -1,23 +1,24 @@
 <section class="header">
-	<div class="container">
+	<div class="container" ng-controller="menuCollapseCtrl as mCtrl">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" ui-sref="profile">Prfile</a>
+					<a class="navbar-brand" ui-sref="nutritionix">Nutritionix</a>
 				</div>
-
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse">
+				<div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
 					<ul class="nav navbar-nav">
-						<li><a ui-sref="login">Login</a></li>
-						<li><a ui-sref="logout">Logout</a></li>
+						<li><a ui-sref="profile">Profile</a></li>
+						<li ng-hide="logined"><a ui-sref="login">Login</a></li>
+						<li ng-show="logined"><a ui-sref="logout">Logout</a></li>
+						<li><a ui-sref="profile_edit">Edit</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
