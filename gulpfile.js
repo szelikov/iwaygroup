@@ -17,7 +17,12 @@ var lr = require('tiny-lr'), // Минивебсервер для livereload
 	request = require('request'),
 
 	jwt = require('jwt-simple'),
-	db = require('origindb')('db');
+	db = require('origindb')('db'),
+
+	nutritionix = require('nutritionix')({
+		appId: '0bde8db6',
+		appKey: 'a21efb253ee01eb22bef44026185bc85'
+	}, false);
 
 // CONFIG
 var local_secret = 'NO_SECRET',
@@ -285,6 +290,39 @@ gulp.task('http-server', function () {
 					res.writeHead(401);
 					res.write('{"error":"Authorization header missing"}');
 					res.end();
+				}
+			});
+		})
+		.use('/nutritionix', function (req, res, next) {
+			var data = '';
+			req.on('data', function (chunk) {
+				data += chunk.toString();
+			});
+			req.on('end', function () {
+				var post = JSON.parse(data || '{}');
+				switch (req.url) {
+				case '/search':
+					// search products
+					/*nutritionix.v2.search({}, function(err, results) {
+						console.log(err, results);
+					});*/
+					nutritionix.search({
+						q: post.query,
+						// use these for paging
+						limit: 10,
+						offset: 0,
+						// controls the basic nutrient returned in search
+						search_nutrient: 'calories'
+					}).then(function (results) {
+						console.log(results);
+						res.writeHead(results.status);
+						res.write(JSON.stringify(results))
+						res.end();
+					}, function (err) {
+						console.log(err);
+					});
+					break;
+				default:
 				}
 			});
 		})

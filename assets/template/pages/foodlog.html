@@ -1,0 +1,24 @@
+<div ng-controller="nutritionixCtrl as nCtrl">
+	<ul class="list-group">
+		<li class="list-group-item" ng-hide="nCtrl.foods.count">
+			<h4>No foods in log</h4>
+		</li>
+		<li class="list-group-item" ng-repeat="item in nCtrl.foods.items">
+			<div class="media">
+				<div class="media-left" style="min-width:110px">
+					<a href="#">
+						<img class="media-object" src="{{item.thumbnail}}" alt="{{item.item_name}}" style="max-width:110px">
+					</a>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">{{item.item_name}} <small>{{item.brand_name}}</small></h4>
+					<p>{{item.nutrient_name}}: {{item.nutrient_value}} {{item.nutrient_uom}}</p>
+					<p>{{item.serving_qty}} {{item.serving_uom}}</p>
+				</div>
+				<div class="media-right">
+					<button class="btn btn-default" ng-click="nCtrl.hide({item})">Remove</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

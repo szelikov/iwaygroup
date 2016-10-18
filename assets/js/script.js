@@ -25,13 +25,11 @@ angular
 
 		$stateProvider.state('nutritionix', {
 			url: '/nutritionix',
-			template: '<h1>Nutritionix</h1>',
-			controller: ['$state', '$sessionStorage', function ($state, $sessionStorage) {
-				// Nutritionix
-				//   search product
-				//   add product to FoodLog
-				//   edit product in FoodLog
-			}]
+			templateUrl: '/pages/nutritionix.html'
+		});
+		$stateProvider.state('foodlog', {
+			url: '/foodlog',
+			templateUrl: '/pages/foodlog.html'
 		});
 
 		$stateProvider.state('profile', {
@@ -126,6 +124,50 @@ angular
 		console.log('menuCollapseCtrl');
 		$scope.isNavCollapsed = true;
 		$scope.logined = Boolean($sessionStorage.user);
+	}])
+	.controller('nutritionixCtrl', ['$state', '$http', '$localStorage', function ($state, $http, $localStorage) {
+		// Nutritionix
+		var $this = this;
+		$this.results = {
+			results: []
+		};
+		$this.loading = false;
+
+		if (!$localStorage.foods)
+			$localStorage.foods = {
+				count: 0,
+				items: {}
+			};
+		$this.foods = $localStorage.foods;
+		//   search product
+		$this.search = function () {
+			$this.loading = true;
+			$http
+				.post('/nutritionix/search', {
+					query: $this.query
+				})
+				.then(function (response) {
+					$this.loading = false;
+					$this.results = response.data;
+				})
+				.catch(function (err) {
+					$this.loading = false;
+				});
+		};
+		//   add product to FoodLog
+		$this.add = function (item) {
+			if (!$localStorage.foods.items[item.item.resource_id]) {
+				$localStorage.foods.items[item.item.resource_id] = item.item;
+				$localStorage.foods.count++;
+			}
+			$this.foods = $localStorage.foods;
+		};
+		$this.hide = function (item) {
+			delete $localStorage.foods.items[item.item.resource_id];
+			$localStorage.foods.count--;
+			$this.foods = $localStorage.foods;
+		};
+		//   edit product in FoodLog
 	}])
 	.run(['$rootScope', '$state', '$auth', '$sessionStorage', function ($rootScope, $state, $auth, $sessionStorage) {
 		// Здесь мы будем проверять авторизацию

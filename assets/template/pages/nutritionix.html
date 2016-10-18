@@ -1,0 +1,37 @@
+<div ng-controller="nutritionixCtrl as nCtrl">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<form class="form-inline" ng-submit="nCtrl.search()">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search" ng-model="nCtrl.query">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+		</div>
+	</div>
+	<div class="progress" ng-show="nCtrl.loading">
+		<div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+			<span class="sr-only">Loading</span>
+		</div>
+	</div>
+	<ul class="list-group" ng-hide="nCtrl.loading">
+		<li class="list-group-item" ng-repeat="item in nCtrl.results.results">
+			<div class="media">
+				<div class="media-left" style="min-width:110px">
+					<a href="#">
+						<img class="media-object" src="{{item.thumbnail}}" alt="{{item.item_name}}" style="max-width:110px">
+					</a>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">{{item.item_name}} <small>{{item.brand_name}}</small></h4>
+					<p>{{item.nutrient_name}}: {{item.nutrient_value}} {{item.nutrient_uom}}</p>
+					<p>{{item.serving_qty}} {{item.serving_uom}}</p>
+				</div>
+				<div class="media-right">
+					<button class="btn btn-default" ng-click="nCtrl.add({item})" ng-hide="nCtrl.foods.items[item.resource_id]">Add</button>
+					<button class="btn btn-default" ng-click="nCtrl.hide({item})" ng-hide="!nCtrl.foods.items[item.resource_id]">Remove</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
