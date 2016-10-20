@@ -66,7 +66,7 @@ gulp.task('less', function () {
 		.pipe(less({
 			paths: ['./node_modules/bootstrap/less']
 		}))
-		.pipe(gulp.dest('./assets/css'));
+		.pipe(gulp.dest('./assets/css/bootstrap'));
 });
 
 gulp.task('style', function () {
@@ -309,12 +309,12 @@ gulp.task('http-server', function () {
 					nutritionix.search({
 						q: post.query,
 						// use these for paging
-						limit: 10,
-						offset: 0,
+						limit: post.limit || 10,
+						offset: post.offset || 0,
 						// controls the basic nutrient returned in search
 						search_nutrient: 'calories'
 					}).then(function (results) {
-						console.log(results);
+						/*console.log(results);*/
 						res.writeHead(results.status);
 						res.write(JSON.stringify(results))
 						res.end();

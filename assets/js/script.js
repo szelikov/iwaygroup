@@ -127,10 +127,13 @@ angular
 	}])
 	.controller('nutritionixCtrl', ['$state', '$http', '$localStorage', function ($state, $http, $localStorage) {
 		// Nutritionix
-		var $this = this;
+		var $this = this,
+			limit = 10,
+			query;
 		$this.results = {
 			results: []
 		};
+		$this.page = 0;
 		$this.loading = false;
 
 		if (!$localStorage.foods)
@@ -140,11 +143,20 @@ angular
 			};
 		$this.foods = $localStorage.foods;
 		//   search product
-		$this.search = function () {
+		$this.search = function (go_page) {
 			$this.loading = true;
+			if (go_page || go_page === 0) {
+				$this.query = query;
+				$this.page = go_page;
+			} else {
+				query = $this.query;
+				$this.page = 0;
+			}
 			$http
 				.post('/nutritionix/search', {
-					query: $this.query
+					query: query,
+					limit: limit,
+					offset: limit * $this.page
 				})
 				.then(function (response) {
 					$this.loading = false;
@@ -166,6 +178,15 @@ angular
 			delete $localStorage.foods.items[item.item.resource_id];
 			$localStorage.foods.count--;
 			$this.foods = $localStorage.foods;
+		};
+		$this.getPages = function() {
+			var count = $this.results.total ? Math.ceil($this.results.total / limit) : 1,
+				arr = new Array(count);
+			if (count > 20) {
+				arr = arr.slice(0,20);
+				arr.push(true);
+			}
+			return arr;
 		};
 		//   edit product in FoodLog
 	}])

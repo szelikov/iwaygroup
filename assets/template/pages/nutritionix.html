@@ -8,6 +8,14 @@
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>
 		</div>
+		<div class="panel-body" ng-show="nCtrl.results.results.length">
+			<nav aria-label="Page navigation" class="pull-right">
+				<ul class="pagination">
+					<li ng-repeat="i in nCtrl.getPages() track by $index" ng-class="{active: $index == nCtrl.page, disabled: i}"><a class="btn btn-link" ng-click="nCtrl.search($index)">{{i ? '&hellip;' : $index+1}}</a></li>
+				</ul>
+			</nav>
+			<p class="form-control-static"><b>{{nCtrl.results.total}}</b> results</p>
+		</div>
 	</div>
 	<div class="progress" ng-show="nCtrl.loading">
 		<div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
@@ -18,9 +26,7 @@
 		<li class="list-group-item" ng-repeat="item in nCtrl.results.results">
 			<div class="media">
 				<div class="media-left" style="min-width:110px">
-					<a href="#">
-						<img class="media-object" src="{{item.thumbnail}}" alt="{{item.item_name}}" style="max-width:110px">
-					</a>
+					<img class="media-object" src="{{item.thumbnail}}" alt="{{item.item_name}}" style="max-width:110px">
 				</div>
 				<div class="media-body">
 					<h4 class="media-heading">{{item.item_name}} <small>{{item.brand_name}}</small></h4>
